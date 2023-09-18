@@ -39,6 +39,14 @@ public class Route {
     @Comment("경로 이름")
 	private String name; // VARCHAR(100) / 경로 이름 / nn
 	
+	@Column(length = 100, nullable = false)
+    @Comment("출발지")
+	private String departures; // VARCHAR(100) / 출발지 / nn
+	
+	@Column(length = 100, nullable = false)
+    @Comment("목적지")
+	private String arrivals; // VARCHAR(100) / 목적지 / nn
+	
 	@Column(nullable = false)
     @Comment("유저 번호(F.K)")
 	private int userId;	// INT(11) / 유저 번호(F.K) / nn
@@ -67,8 +75,10 @@ public class Route {
     private User user;
 
 	@Builder
-	public Route(String name, int userId, String isDeleted) {
+	public Route(String name, String departures, String arrivals, int userId, String isDeleted) {
 		this.name = name;
+		this.departures = departures;
+		this.arrivals = arrivals;
 		this.userId = userId;
 		this.isDeleted = isDeleted;
 	}
