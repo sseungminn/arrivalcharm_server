@@ -38,13 +38,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		System.out.println("Authorization Request");
 		
 		// 토큰 검증 안하는 URL
-		if(request.getRequestURI().startsWith("/api/v1/auth/") || request.getRequestURI().startsWith("/api/v1/check/") || request.getRequestURI().startsWith("/api/v1/users")) {
+		if(request.getRequestURI().startsWith("/api/v1/auth/") || request.getRequestURI().startsWith("/api/v1/check/")) {
 			chain.doFilter(request, response);
 			return;
 		}
-		
+		System.out.println(request.getRequestURL());
 		String jwtHeader = request.getHeader(JwtProperties.HEADER_STRING);
-//		System.out.println("jwtHeader : " + jwtHeader);
+		System.out.println("jwtHeader : " + jwtHeader);
 		
 		// Confirm Header
 		if(jwtHeader == null || !jwtHeader.startsWith(JwtProperties.TOKEN_PREFIX)) {
