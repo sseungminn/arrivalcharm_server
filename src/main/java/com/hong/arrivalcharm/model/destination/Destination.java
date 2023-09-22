@@ -1,4 +1,4 @@
-package com.hong.arrivalcharm.model.route;
+package com.hong.arrivalcharm.model.destination;
 
 import java.sql.Timestamp;
 
@@ -28,24 +28,23 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @DynamicInsert
-// 그룹톡
-public class Route {
+public class Destination {
 	@Id //primary Key
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Comment("경로 번호")
+    @Comment("목적지 ID")
 	private int id; // INT(11) / 경로 번호 / nn
 	
 	@Column(length = 100, nullable = false)
-    @Comment("경로 이름")
+    @Comment("목적지 이름")
 	private String name; // VARCHAR(100) / 경로 이름 / nn
 	
 	@Column(length = 100, nullable = false)
-    @Comment("출발지")
-	private String departures; // VARCHAR(100) / 출발지 / nn
+    @Comment("목적지 위도")
+	private String lat; // VARCHAR(100) / 목적지 위도 / nn
 	
 	@Column(length = 100, nullable = false)
-    @Comment("목적지")
-	private String arrivals; // VARCHAR(100) / 목적지 / nn
+    @Comment("목적지 경도")
+	private String lon; // VARCHAR(100) / 목적지 경도 / nn
 	
 	@Column(nullable = false)
     @Comment("유저 번호(F.K)")
@@ -75,10 +74,10 @@ public class Route {
     private User user;
 
 	@Builder
-	public Route(String name, String departures, String arrivals, int userId, String isDeleted) {
+	public Destination(String name, String lat, String lon, int userId, String isDeleted) {
 		this.name = name;
-		this.departures = departures;
-		this.arrivals = arrivals;
+		this.lat = lat;
+		this.lon = lon;
 		this.userId = userId;
 		this.isDeleted = isDeleted;
 	}

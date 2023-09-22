@@ -12,9 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hong.arrivalcharm.lib.FileHandler;
 import com.hong.arrivalcharm.lib.ImageChecker;
 import com.hong.arrivalcharm.model.auth.User;
-import com.hong.arrivalcharm.model.route.Route;
+import com.hong.arrivalcharm.model.destination.Destination;
 import com.hong.arrivalcharm.repository.UserRepository;
-import com.hong.arrivalcharm.repository.route.RouteRepository;
+import com.hong.arrivalcharm.repository.destination.DestinationRepository;
 import com.hong.arrivalcharm.service.ServiceAbstract;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService extends ServiceAbstract {
 	private final UserRepository userRepository;
-	private final RouteRepository routeRepository;
+	private final DestinationRepository destinationRepository;
 	
 	@Value("${file.dir}")
     private String fileDir;
@@ -67,9 +67,9 @@ public class UserService extends ServiceAbstract {
 			throw new Exception("본인의 계정만 탈퇴 가능합니다.");
 		}
 //		Route 데이터 삭제
-		List<Route> myRoutes = routeRepository.myRoutes(userId);
-		for(Route r : myRoutes) {
-			routeRepository.delete(r);
+		List<Destination> myRoutes = destinationRepository.myDestinations(userId);
+		for(Destination r : myRoutes) {
+			destinationRepository.delete(r);
 		}
 		
 		// User 삭제
