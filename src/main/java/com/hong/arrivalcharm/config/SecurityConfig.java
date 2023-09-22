@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtTokenProvider, refreshTokenRepository))
 		.addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository))
 		.authorizeRequests()
-		.antMatchers("/api/v1/auth/**", "/api/v1/check/**").permitAll()
+		.antMatchers("/**","/api/v1/auth/**", "/api/v1/check/**", "/swagger-ui/**", "/swagger**", "/v2**").permitAll()
 		.antMatchers("/api/v1/**").authenticated()
 		.antMatchers("/api/v1/admin/**").access("hasRole('ROLE_ADMIN')")
 //		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")

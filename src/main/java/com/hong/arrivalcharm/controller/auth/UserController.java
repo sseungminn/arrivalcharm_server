@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hong.arrivalcharm.service.auth.UserService;
 
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -24,6 +26,7 @@ public class UserController {
 	private UserService userService;
 	
 	@PutMapping("/{id}")
+	@ApiOperation(value = "회원 수정", notes = "")
 	public @ResponseBody Map<String, String> updateUser(@PathVariable int id, @RequestParam String displayUsername, @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
 		Map<String, String> result = null;
 		try {
@@ -36,7 +39,8 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public @ResponseBody Map<String, String> immediatelyResignUser(@PathVariable int id) throws Exception{
+	@ApiOperation(value = "회원 탈퇴", notes = "")
+	public @ResponseBody Map<String, String> resignUser(@PathVariable int id) throws Exception{
 		Map<String, String> result = null;
 		try {
 			result = userService.resignUser(id);
