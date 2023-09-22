@@ -24,19 +24,19 @@ public class DestinationService extends ServiceAbstract {
 	public Map<String, Object> destinationList(){
 		User user = this.getUserSession();
 		int userId = user.getId();
-		List<Destination> routeList = destinationRepository.myDestinations(userId);
-		List<Map<String, Object>> myRoutes = new ArrayList<Map<String, Object>>();
-		for(Destination destination : routeList) {
+		List<Destination> destinationList = destinationRepository.myDestinations(userId);
+		List<Map<String, Object>> myDestinations = new ArrayList<Map<String, Object>>();
+		for(Destination destination : destinationList) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", destination.getId());
 			map.put("name", destination.getName());
 			map.put("lon", destination.getLat());
 			map.put("lat", destination.getLon());
 			map.put("userId", destination.getUser().getId());
-			myRoutes.add(map);
+			myDestinations.add(map);
 		}
 		Map<String, Object> result = new HashMap<>();
-        result.put("routeList", myRoutes);
+        result.put("destinationList", myDestinations);
         return result;
 	}
 	
@@ -49,7 +49,6 @@ public class DestinationService extends ServiceAbstract {
 								.lat(lat)
 								.lon(lon)
 								.userId(userId)
-								.isDeleted("F")
 								.build();
 		destinationRepository.save(destination);
 		Map<String, Object> result = new HashMap<>();
@@ -62,10 +61,34 @@ public class DestinationService extends ServiceAbstract {
 		User user = this.getUserSession();
 		int userId = user.getId();
 		Destination destination = destinationRepository.findByIdAndUserId(id, userId).get();
+		if(destination == null) {
+			throw new NullPointerException("해당 ID("+id+")의 목적지가 존재하지 않습니다.");
+		}
 		destinationRepository.delete(destination);
 		Map<String, Object> result = new HashMap<>();
 		result.put("result", "success");
 //        result.put("destination", destination);
+        return result;
+	}
+	
+	// 내 목적지 수정
+	public Map<String, Object> updateDestination(int id, String name, String lat, String lon) throws Exception{
+		User user = this.getUserSession();
+		int userId = user.getId();
+		Destination destination = destinationRepository.findById(id).get();
+		
+		if(destination == null) {
+			throw new NullPointerException("해당 ID("+id+")의 목적지가 존재하지 않습니다.");
+		}
+		
+		if(userId != destination.getUser().getId()) {
+			throw new Exception("본인이 작성한 목적지만 수정 가능합니다.");
+		}
+		destination.setName(name);
+		destination.setLat(lat);
+		destination.setLon(lon);
+		Map<String, Object> result = new HashMap<>();
+        result.put("destination", destination);
         return result;
 	}
 }

@@ -1,6 +1,5 @@
 package com.hong.arrivalcharm.repository.destination;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +19,6 @@ public interface DestinationRepository extends JpaRepository<Destination, String
 				 + "AND d.isDeleted = 'F'", nativeQuery = true)
 	List<Destination> myDestinations(@Param("userId") int userId);
 	
-	@Query(value = "UPDATE Destination d "
-				 + "SET d.isDeleted = 'T', "
-				 + "d.deletedAt = :now "
-				 + "WHERE d.id = :routeId")
-	void deleteDestination(@Param("now") Timestamp now, @Param("routeId") int routeId);
-	
+	Optional<Destination> findById(int id);
 	Optional<Destination> findByIdAndUserId(int id, int userId);
 }

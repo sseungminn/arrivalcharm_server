@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,6 +43,18 @@ public class DestinationController {
 		Map<String, Object> result = null;
 		try {
 			result = destinationService.createDestination(name, lat, lon);
+		} catch (Exception e) {
+			throw e;
+		}
+		return result; 
+	}
+	
+	@PutMapping("/{id}")
+	@ApiOperation(value = "목적지 수정", notes = "")
+	public @ResponseBody Map<String, Object> updateDestination(@PathVariable int id, @RequestParam String name, @RequestParam String lat, @RequestParam String lon) throws Exception {
+		Map<String, Object> result = null;
+		try {
+			result = destinationService.updateDestination(id, name, lat, lon);
 		} catch (Exception e) {
 			throw e;
 		}
