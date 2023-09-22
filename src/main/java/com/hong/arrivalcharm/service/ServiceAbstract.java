@@ -17,10 +17,10 @@ public class ServiceAbstract extends RequestUtils{
 	private UserRepository userRepository;
 	
 	protected User getUserSession() {
-		String jwtToken = this.getHttpServletRequest().getHeader(JwtProperties.HEADER_STRING).replace(JwtProperties.TOKEN_PREFIX, "");
-		int userId = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken).getClaim("id").asInt();
-		User user = userRepository.findById(userId);
+//		String jwtToken = this.getHttpServletRequest().getHeader(JwtProperties.HEADER_STRING).replace(JwtProperties.TOKEN_PREFIX, "");
+//		int userId = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken).getClaim("id").asInt();
+//		User user = userRepository.findById(userId);
+		User user = userRepository.findById(1);
 		return user;
-//		return ((PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
 	}
 }
