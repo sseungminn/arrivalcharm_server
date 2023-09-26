@@ -40,6 +40,16 @@ public class DestinationService extends ServiceAbstract {
         return result;
 	}
 	
+	// 목적지 상세
+	public Map<String, Object> getDestination(int id){
+		User user = this.getUserSession();
+		int userId = user.getId();
+		Destination destination = destinationRepository.findByIdAndUserId(id, userId).get();
+		Map<String, Object> result = new HashMap<>();
+        result.put("destination", destination);
+        return result;
+	}
+	
 	// 내 경로 생성(추가)
 	public Map<String, Object> createDestination(String name, String lat, String lon){
 		User user = this.getUserSession();

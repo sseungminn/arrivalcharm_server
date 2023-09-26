@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hong.arrivalcharm.model.destination.Destination;
+import com.hong.arrivalcharm.service.RestTemplateService;
 import com.hong.arrivalcharm.service.destination.DestinationService;
 
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +25,9 @@ public class DestinationController {
 
 	@Autowired
 	private DestinationService destinationService;
+	
+	@Autowired
+	private RestTemplateService restTemplateService;
 	
 	// 내 경로 리스트
 	@GetMapping("")
@@ -37,6 +42,23 @@ public class DestinationController {
 		return result;
 	}
 	
+	// 목적지 상세
+	@GetMapping("/{id}")
+	@ApiOperation(value = "목적지 상세 조회", notes = "")
+	public @ResponseBody Map<String, Object> destination(@PathVariable int id) throws Exception {
+		Map<String, Object> result = null;
+		try {
+			result = destinationService.getDestination(id);
+			Destination destination = (Destination) result.get("destination");
+			String lat = destination.getLat();
+			String lon = destination.getLon();
+			Map<String, String> weather = restTemplateService.getWeather(lat, lon);
+		    result.put("weather", weather);
+		} catch (Exception e) {
+			throw e;
+		}
+		return result;
+	}
 	@PostMapping("")
 	@ApiOperation(value = "목적지 추가", notes = "")
 	public @ResponseBody Map<String, Object> createDestination(@RequestParam String name, @RequestParam String lat, @RequestParam String lon) throws Exception {
@@ -73,3 +95,4 @@ public class DestinationController {
 		return result; 
 	}
 }
+

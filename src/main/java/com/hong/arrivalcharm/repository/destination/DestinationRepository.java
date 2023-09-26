@@ -15,8 +15,7 @@ public interface DestinationRepository extends JpaRepository<Destination, String
 				 + "FROM Destination d "
 				 + "INNER JOIN User u "
 				 + "ON d.userId = u.id "
-				 + "WHERE d.userId = :userId "
-				 + "AND d.isDeleted = 'F'", nativeQuery = true)
+				 + "WHERE d.userId = :userId ", nativeQuery = true)
 	List<Destination> myDestinations(@Param("userId") int userId);
 	
 	Optional<Destination> findById(int id);
