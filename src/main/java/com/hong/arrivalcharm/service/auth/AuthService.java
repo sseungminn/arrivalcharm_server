@@ -73,7 +73,6 @@ public class AuthService extends ServiceAbstract {
 					.role(role)
 					.provider(provider)
 					.providerId(providerId)
-					.isResigned("F")
 					.build();
 			userRepository.save(userEntity);
 		}

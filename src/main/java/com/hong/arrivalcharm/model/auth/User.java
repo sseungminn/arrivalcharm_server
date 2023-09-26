@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -68,18 +67,8 @@ public class User {
 	@CreationTimestamp
 	private Timestamp createdAt; // Timestamp / 생성 시간 / nn / default: NOW()
 	
-	@Column(nullable = false, columnDefinition = "CHAR(1)")
-	@ColumnDefault("'F'")
-    @Comment("탈퇴 여부(T, F)")
-	private String isResigned; // CHAR(1) / 탈퇴 여부(T, F) / nn / default: 'F'
-	
-	@Column(nullable = true, columnDefinition = "TIMESTAMP")
-    @Comment("탈퇴 시간")
-	private Timestamp resignedAt; // Timestamp / 탈퇴 시간 / null
-	
 	@Builder
-	public User(String username, String password, String email, String role, String provider, String providerId, String profilePath, String displayUsername,
-			Timestamp createdAt, String isResigned, Timestamp resignedAt) {
+	public User(String username, String password, String email, String role, String provider, String providerId, String profilePath, String displayUsername, Timestamp createdAt) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -89,8 +78,6 @@ public class User {
 		this.profilePath = profilePath;
 		this.displayUsername = displayUsername;
 		this.createdAt = createdAt;
-		this.isResigned = isResigned;
-		this.resignedAt = resignedAt;
 	}
 }
 
