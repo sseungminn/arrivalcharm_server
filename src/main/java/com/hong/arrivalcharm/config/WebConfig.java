@@ -13,6 +13,10 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/swagger-ui/**")
 				.addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
 				.resourceChain(false);
+		
+		registry.addResourceHandler("/image/**")
+				.addResourceLocations("classpath:/static/image/")
+				.setCachePeriod(60 * 60 * 24 * 365);
 	}
 	
 	@Override

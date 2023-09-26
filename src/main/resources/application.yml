@@ -10,6 +10,9 @@ server:
 file:
   dir: C:/DEV/arrivalcharm/upload
   
+api:
+  openweather: f63884df8daa712aea18eeded67a2203
+  
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
