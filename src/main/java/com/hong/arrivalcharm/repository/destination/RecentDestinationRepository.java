@@ -15,7 +15,8 @@ public interface RecentDestinationRepository extends JpaRepository<RecentDestina
 				 + "FROM RecentDestination rd "
 				 + "INNER JOIN User u "
 				 + "ON rd.userId = u.id "
-				 + "WHERE rd.userId = :userId ", nativeQuery = true)
+				 + "WHERE rd.userId = :userId "
+				 + "ORDER BY rd.createdAt DESC", nativeQuery = true)
 	List<RecentDestination> myRecentSearchList(@Param("userId") int userId);
 	
 	Optional<RecentDestination> findById(int id);

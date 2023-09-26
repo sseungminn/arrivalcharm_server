@@ -30,11 +30,15 @@ public class Destination {
 	@Id //primary Key
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("목적지 ID")
-	private int id; // INT(11) / 경로 번호 / nn
+	private int id; // INT(11) / 목적지 id / nn
 	
 	@Column(length = 100, nullable = false)
     @Comment("목적지 이름")
-	private String name; // VARCHAR(100) / 경로 이름 / nn
+	private String name; // VARCHAR(100) / 목적지 이름 / nn
+	
+	@Column(length = 100, nullable = false)
+    @Comment("목적지 주소")
+	private String address; // VARCHAR(100) / 목적지 주소 / nn
 	
 	@Column(length = 100, nullable = false)
     @Comment("목적지 위도")
@@ -58,8 +62,9 @@ public class Destination {
     private User user;
 
 	@Builder
-	public Destination(String name, String lat, String lon, int userId) {
+	public Destination(String name, String address, String lat, String lon, int userId) {
 		this.name = name;
+		this.address = address;
 		this.lat = lat;
 		this.lon = lon;
 		this.userId = userId;

@@ -58,6 +58,7 @@ public class AuthService extends ServiceAbstract {
 		
 		String provider = oAuth2UserInfo.get("provider");
 		String providerId = oAuth2UserInfo.get("id");
+		String profilePath = "/image/default/profile.jpg";
 		String username = oAuth2UserInfo.get("name");
 		String password = bCryptPasswordEncoder.encode(oAuth2UserInfo.get("password"));
 		String email = oAuth2UserInfo.get("email");
@@ -73,6 +74,7 @@ public class AuthService extends ServiceAbstract {
 					.role(role)
 					.provider(provider)
 					.providerId(providerId)
+					.profilePath(profilePath)
 					.build();
 			userRepository.save(userEntity);
 		}

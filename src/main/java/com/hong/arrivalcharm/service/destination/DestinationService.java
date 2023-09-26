@@ -30,6 +30,7 @@ public class DestinationService extends ServiceAbstract {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", destination.getId());
 			map.put("name", destination.getName());
+			map.put("address", destination.getAddress());
 			map.put("lon", destination.getLat());
 			map.put("lat", destination.getLon());
 			map.put("userId", destination.getUser().getId());
@@ -51,11 +52,12 @@ public class DestinationService extends ServiceAbstract {
 	}
 	
 	// 내 경로 생성(추가)
-	public Map<String, Object> createDestination(String name, String lat, String lon){
+	public Map<String, Object> createDestination(String name, String address, String lat, String lon){
 		User user = this.getUserSession();
 		int userId = user.getId();
 		Destination destination = Destination.builder()
 								.name(name)
+								.address(address)
 								.lat(lat)
 								.lon(lon)
 								.userId(userId)

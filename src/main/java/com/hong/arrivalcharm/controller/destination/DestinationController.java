@@ -61,10 +61,10 @@ public class DestinationController {
 	}
 	@PostMapping("")
 	@ApiOperation(value = "목적지 추가", notes = "")
-	public @ResponseBody Map<String, Object> createDestination(@RequestParam String name, @RequestParam String lat, @RequestParam String lon) throws Exception {
+	public @ResponseBody Map<String, Object> createDestination(@RequestParam String name, @RequestParam String address, @RequestParam String lat, @RequestParam String lon) throws Exception {
 		Map<String, Object> result = null;
 		try {
-			result = destinationService.createDestination(name, lat, lon);
+			result = destinationService.createDestination(name, address, lat, lon);
 		} catch (Exception e) {
 			throw e;
 		}

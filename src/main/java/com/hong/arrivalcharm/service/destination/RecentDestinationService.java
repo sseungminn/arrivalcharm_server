@@ -19,8 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class RecentDestinationService extends ServiceAbstract {
 
 	private final RecentDestinationRepository recentDestinationRepository;
-	
-	// 내 경로 리스트 조회
+	// 내 최근 검색 리스트 조회
 	public Map<String, Object> destinationList(){
 		User user = this.getUserSession();
 		int userId = user.getId();
@@ -28,9 +27,12 @@ public class RecentDestinationService extends ServiceAbstract {
 		List<Map<String, Object>> myRecentDestinationList = new ArrayList<Map<String, Object>>();
 		for(RecentDestination rd : myRecentSearchList) {
 			Map<String, Object> map = new HashMap<>();
+			map.put("address", rd.getAddress());
 			map.put("id", rd.getId());
 			map.put("lon", rd.getLat());
 			map.put("lat", rd.getLon());
+			map.put("createdAt", rd.getCreatedAt().getTime());
+//			map.put("createdAt", Instant.parse(rd.getCreatedAt().toString()).toEpochMilli() + "");
 			map.put("userId", rd.getUser().getId());
 			myRecentDestinationList.add(map);
 		}
@@ -40,10 +42,11 @@ public class RecentDestinationService extends ServiceAbstract {
 	}
 	
 	// 내 경로 생성(추가)
-	public Map<String, Object> createRecentDestination(String lat, String lon){
+	public Map<String, Object> createRecentDestination(String address, String lat, String lon){
 		User user = this.getUserSession();
 		int userId = user.getId();
 		RecentDestination recentDestination = RecentDestination.builder()
+								.address(address)
 								.lat(lat)
 								.lon(lon)
 								.userId(userId)

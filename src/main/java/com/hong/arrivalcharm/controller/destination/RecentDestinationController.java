@@ -38,10 +38,10 @@ public class RecentDestinationController {
 	
 	@PostMapping("")
 	@ApiOperation(value = "검색 목적지 추가", notes = "")
-	public @ResponseBody Map<String, Object> createDestination(@RequestParam String lat, @RequestParam String lon) throws Exception {
+	public @ResponseBody Map<String, Object> createDestination(@RequestParam String address, @RequestParam String lat, @RequestParam String lon) throws Exception {
 		Map<String, Object> result = null;
 		try {
-			result = recentDestinationService.createRecentDestination(lat, lon);
+			result = recentDestinationService.createRecentDestination(address, lat, lon);
 		} catch (Exception e) {
 			throw e;
 		}
