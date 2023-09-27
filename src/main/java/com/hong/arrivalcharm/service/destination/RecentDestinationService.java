@@ -27,12 +27,11 @@ public class RecentDestinationService extends ServiceAbstract {
 		List<Map<String, Object>> myRecentDestinationList = new ArrayList<Map<String, Object>>();
 		for(RecentDestination rd : myRecentSearchList) {
 			Map<String, Object> map = new HashMap<>();
-			map.put("address", rd.getAddress());
 			map.put("id", rd.getId());
+			map.put("address", rd.getAddress());
 			map.put("lon", rd.getLat());
 			map.put("lat", rd.getLon());
 			map.put("createdAt", rd.getCreatedAt().getTime());
-//			map.put("createdAt", Instant.parse(rd.getCreatedAt().toString()).toEpochMilli() + "");
 			map.put("userId", rd.getUser().getId());
 			myRecentDestinationList.add(map);
 		}
