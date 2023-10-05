@@ -11,13 +11,12 @@ import com.hong.arrivalcharm.model.destination.RecentDestination;
 
 public interface RecentDestinationRepository extends JpaRepository<RecentDestination, String>{
 
-	@Query(value = "SELECT rd.* "
+	@Query(value = "SELECT rd "
 				 + "FROM RecentDestination rd "
-				 + "INNER JOIN User u "
-				 + "ON rd.userId = u.id "
-				 + "WHERE rd.userId = :userId "
-				 + "ORDER BY rd.createdAt DESC", nativeQuery = true)
-	List<RecentDestination> myRecentSearchList(@Param("userId") int userId);
+				 + "JOIN FETCH rd.user u "
+				 + "WHERE u.id = :userId "
+				 + "ORDER BY rd.createdAt DESC")
+	List<RecentDestination> getMyRecentSearchList(@Param("userId") int userId);
 	
 	Optional<RecentDestination> findById(int id);
 	Optional<RecentDestination> findByIdAndUserId(int id, int userId);

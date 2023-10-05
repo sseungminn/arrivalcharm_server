@@ -40,10 +40,9 @@ public class AuthService extends ServiceAbstract {
 		
 		String userRefreshToken = token.getToken();
 		
-		// refreshToken 사용이 불가능한 경우
         Map<String, Object> result = new HashMap<>();
         
-		// refreshToken 인증 성공인 경우 accessToken 재발급
+		// accessToken 재발급
 		User userEntity = userRepository.findById(userId);
 		PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
 		String newAccessToken = jwtTokenProvider.generateAccessToken(principalDetails);

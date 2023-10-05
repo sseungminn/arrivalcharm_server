@@ -21,7 +21,7 @@ public class DestinationService extends ServiceAbstract {
 	private final DestinationRepository destinationRepository;
 	
 	// 내 경로 리스트 조회
-	public Map<String, Object> destinationList(){
+	public Map<String, Object> getDestinationList(){
 		User user = this.getUserSession();
 		int userId = user.getId();
 		List<Destination> destinationList = destinationRepository.myDestinations(userId);
@@ -84,7 +84,7 @@ public class DestinationService extends ServiceAbstract {
 	}
 	
 	// 내 목적지 수정
-	public Map<String, Object> updateDestination(int id, String name, String lat, String lon) throws Exception{
+	public Map<String, Object> modifyDestination(int id, String name, String lat, String lon) throws Exception{
 		User user = this.getUserSession();
 		int userId = user.getId();
 		Destination destination = destinationRepository.findById(id).get();

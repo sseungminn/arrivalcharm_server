@@ -20,10 +20,10 @@ public class RecentDestinationService extends ServiceAbstract {
 
 	private final RecentDestinationRepository recentDestinationRepository;
 	// 내 최근 검색 리스트 조회
-	public Map<String, Object> destinationList(){
+	public Map<String, Object> getRecentDestinationList(){
 		User user = this.getUserSession();
 		int userId = user.getId();
-		List<RecentDestination> myRecentSearchList = recentDestinationRepository.myRecentSearchList(userId);
+		List<RecentDestination> myRecentSearchList = recentDestinationRepository.getMyRecentSearchList(userId);
 		List<Map<String, Object>> myRecentDestinationList = new ArrayList<Map<String, Object>>();
 		for(RecentDestination rd : myRecentSearchList) {
 			Map<String, Object> map = new HashMap<>();
@@ -52,7 +52,14 @@ public class RecentDestinationService extends ServiceAbstract {
 								.build();
 		recentDestinationRepository.save(recentDestination);
 		Map<String, Object> result = new HashMap<>();
-        result.put("recentDestination", recentDestination);
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", recentDestination.getId());
+		map.put("address", recentDestination.getAddress());
+		map.put("lon", recentDestination.getLat());
+		map.put("lat", recentDestination.getLon());
+		map.put("createdAt", recentDestination.getCreatedAt().getTime());
+		map.put("userId", userId);
+        result.put("recentDestination", map);
         return result;
 	}
 	

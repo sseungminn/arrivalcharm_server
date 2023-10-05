@@ -32,10 +32,10 @@ public class DestinationController {
 	// 내 경로 리스트
 	@GetMapping("")
 	@ApiOperation(value = "목적지 리스트 조회", notes = "")
-	public @ResponseBody Map<String, Object> destinations() throws Exception {
+	public @ResponseBody Map<String, Object> getDestinationList() throws Exception {
 		Map<String, Object> result = null;
 		try {
-			result = destinationService.destinationList();
+			result = destinationService.getDestinationList();
 		} catch (Exception e) {
 			throw e;
 		}
@@ -45,7 +45,7 @@ public class DestinationController {
 	// 목적지 상세
 	@GetMapping("/{id}")
 	@ApiOperation(value = "목적지 상세 조회", notes = "")
-	public @ResponseBody Map<String, Object> destination(@PathVariable int id) throws Exception {
+	public @ResponseBody Map<String, Object> getDestination(@PathVariable int id) throws Exception {
 		Map<String, Object> result = null;
 		try {
 			result = destinationService.getDestination(id);
@@ -73,10 +73,10 @@ public class DestinationController {
 	
 	@PutMapping("/{id}")
 	@ApiOperation(value = "목적지 수정", notes = "")
-	public @ResponseBody Map<String, Object> updateDestination(@PathVariable int id, @RequestParam String name, @RequestParam String lat, @RequestParam String lon) throws Exception {
+	public @ResponseBody Map<String, Object> modifyDestination(@PathVariable int id, @RequestParam String name, @RequestParam String lat, @RequestParam String lon) throws Exception {
 		Map<String, Object> result = null;
 		try {
-			result = destinationService.updateDestination(id, name, lat, lon);
+			result = destinationService.modifyDestination(id, name, lat, lon);
 		} catch (Exception e) {
 			throw e;
 		}

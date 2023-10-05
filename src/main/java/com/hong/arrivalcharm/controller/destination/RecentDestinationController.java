@@ -26,10 +26,10 @@ public class RecentDestinationController {
 	// 최근 검색 목록 조회
 	@GetMapping("")
 	@ApiOperation(value = "최근 검색 목적지 리스트 조회", notes = "")
-	public @ResponseBody Map<String, Object> destinations() throws Exception {
+	public @ResponseBody Map<String, Object> getRecentDestinationList() throws Exception {
 		Map<String, Object> result = null;
 		try {
-			result = recentDestinationService.destinationList();
+			result = recentDestinationService.getRecentDestinationList();
 		} catch (Exception e) {
 			throw e;
 		}
@@ -38,7 +38,7 @@ public class RecentDestinationController {
 	
 	@PostMapping("")
 	@ApiOperation(value = "검색 목적지 추가", notes = "")
-	public @ResponseBody Map<String, Object> createDestination(@RequestParam String address, @RequestParam String lat, @RequestParam String lon) throws Exception {
+	public @ResponseBody Map<String, Object> createRecentDestination(@RequestParam String address, @RequestParam String lat, @RequestParam String lon) throws Exception {
 		Map<String, Object> result = null;
 		try {
 			result = recentDestinationService.createRecentDestination(address, lat, lon);
@@ -50,7 +50,7 @@ public class RecentDestinationController {
 	
 	@DeleteMapping("/{id}")
 	@ApiOperation(value = "검색 목적지 삭제", notes = "")
-	public @ResponseBody Map<String, Object> deleteDestination(@PathVariable int id){
+	public @ResponseBody Map<String, Object> deleteRecentDestination(@PathVariable int id){
 		Map<String, Object> result = null;
 		try {
 			result = recentDestinationService.deleteRecentDestination(id);
