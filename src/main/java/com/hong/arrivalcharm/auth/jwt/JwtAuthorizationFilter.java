@@ -36,14 +36,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("Authorization Request");
+		System.out.println("Authorization Request : " + request.getRequestURI());
 		
 		// 토큰 검증 안하는 URL
 		if(request.getRequestURI().startsWith("/") || request.getRequestURI().startsWith("/api/v1/auth/") || request.getRequestURI().startsWith("/api/v1/check/") || request.getRequestURI().startsWith("/swagger-") || request.getRequestURI().startsWith("/v2")) {
 			chain.doFilter(request, response);
 			return;
 		}
-		System.out.println(request.getRequestURL());
 		String jwtHeader = request.getHeader(JwtProperties.HEADER_STRING);
 		System.out.println("jwtHeader : " + jwtHeader);
 		// 테스트 파라미터 (실서버시 주석 해야함)
