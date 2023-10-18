@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Comment;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.hong.arrivalcharm.model.auth.User;
@@ -48,20 +47,20 @@ public class RecentDestination {
     @Comment("유저 번호(F.K)")
 	private int userId;	// INT(11) / 유저 번호(F.K) / nn
 	
-	@Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    @Comment("생성 시간(검색 시간)")
-	@CreationTimestamp
-	private Timestamp createdAt; // Timestamp / 생성 시간(검색시간) / nn / defualt: NOW()
+	@Column(nullable = false, columnDefinition = "TIMESTAMP")
+    @Comment("검색 시간")
+	private Timestamp searchedAt; // Timestamp / 검색 시간 / nn / defualt: NOW()
 	
 	@OneToOne
     @JoinColumn(name = "userId", insertable = false, updatable = false)
     private User user;
 
 	@Builder
-	public RecentDestination(String address, String lat, String lon, int userId) {
+	public RecentDestination(String address, String lat, String lon, Timestamp searchedAt, int userId) {
 		this.address = address;
 		this.lat = lat;
 		this.lon = lon;
+		this.searchedAt = searchedAt;
 		this.userId = userId;
 	}
 }

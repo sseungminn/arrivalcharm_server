@@ -15,4 +15,6 @@ public final class Const {
     public static final int LIST_LIMIT = 30;
     
     public static final String[] EXTENSIONS = { "png", "bmp", "jpg", "jpeg", "gif" };
+    
+    public static final int RECENT_SEARCH_LIMIT = 20;
 }

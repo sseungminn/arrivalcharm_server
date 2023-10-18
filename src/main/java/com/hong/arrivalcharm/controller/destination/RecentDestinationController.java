@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,18 @@ public class RecentDestinationController {
 		Map<String, Object> result = null;
 		try {
 			result = recentDestinationService.createRecentDestination(address, lat, lon);
+		} catch (Exception e) {
+			throw e;
+		}
+		return result; 
+	}
+	
+	@PatchMapping("/{id}")
+	@ApiOperation(value = "검색 목적지 재검색", notes = "")
+	public @ResponseBody Map<String, Object> reuseRecentDestination(@PathVariable int id) throws Exception {
+		Map<String, Object> result = null;
+		try {
+			result = recentDestinationService.reuseRecentDestination(id);
 		} catch (Exception e) {
 			throw e;
 		}
