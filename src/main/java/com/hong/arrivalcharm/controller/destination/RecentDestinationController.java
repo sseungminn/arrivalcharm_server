@@ -38,7 +38,7 @@ public class RecentDestinationController {
 	}
 	
 	@PostMapping("")
-	@ApiOperation(value = "검색 목적지 추가", notes = "")
+	@ApiOperation(value = "목적지 검색(최근 검색 추가)", notes = "")
 	public @ResponseBody Map<String, Object> createRecentDestination(@RequestParam String address, @RequestParam String lat, @RequestParam String lon) throws Exception {
 		Map<String, Object> result = null;
 		try {
