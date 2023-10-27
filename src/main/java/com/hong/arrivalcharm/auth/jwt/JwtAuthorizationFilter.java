@@ -7,7 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,7 +37,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 			throws IOException, ServletException {
 		
 		// 토큰 검증 안하는 URL
-		if(request.getRequestURI().startsWith("/") || request.getRequestURI().startsWith("/api/v1/auth/") || request.getRequestURI().startsWith("/api/v1/check/") || request.getRequestURI().startsWith("/swagger-") || request.getRequestURI().startsWith("/v2")) {
+		//  || request.getRequestURI().startsWith("/swagger-") || request.getRequestURI().startsWith("/v2")
+		if(request.getRequestURI().startsWith("/api/v1/auth")) {
 			chain.doFilter(request, response);
 			return;
 		}
@@ -46,19 +46,19 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		System.out.println("Authorization Request : " + request.getRequestURI());
 		String jwtHeader = request.getHeader(JwtProperties.HEADER_STRING);
 		System.out.println("jwtHeader : " + jwtHeader);
-		// 테스트 파라미터 (실서버시 주석 해야함)
-		if(!StringUtils.isEmpty(request.getParameter("testUserId"))) {
-			int userId = Integer.parseInt(request.getParameter("testUserId"));
-			User userEntity = userRepository.findById(userId);
-			PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
-			Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
-			if(authentication != null) {
-				SecurityContextHolder.getContext().setAuthentication(authentication);
-			}
-
-			chain.doFilter(request, response);
-			return;
-		}
+//		// 테스트 파라미터 (실서버시 주석 해야함)
+//		if(!StringUtils.isEmpty(request.getParameter("testUserId"))) {
+//			int userId = Integer.parseInt(request.getParameter("testUserId"));
+//			User userEntity = userRepository.findById(userId);
+//			PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
+//			Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
+//			if(authentication != null) {
+//				SecurityContextHolder.getContext().setAuthentication(authentication);
+//			}
+//
+//			chain.doFilter(request, response);
+//			return;
+//		}
 
 		// Confirm Header
 		if(jwtHeader == null || !jwtHeader.startsWith(JwtProperties.TOKEN_PREFIX)) {
