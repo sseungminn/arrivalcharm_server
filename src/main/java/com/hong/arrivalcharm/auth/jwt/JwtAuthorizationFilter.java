@@ -38,7 +38,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		
 		// 토큰 검증 안하는 URL
 		//  || request.getRequestURI().startsWith("/swagger-") || request.getRequestURI().startsWith("/v2")
-		if(request.getRequestURI().startsWith("/api/v1/auth")) {
+		if(request.getRequestURI().startsWith("/api/v1/auth") || request.getRequestURI().startsWith("/image") || request.getRequestURI().startsWith("/swagger-") || request.getRequestURI().startsWith("/v2")) {
 			chain.doFilter(request, response);
 			return;
 		}
