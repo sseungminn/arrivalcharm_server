@@ -30,13 +30,13 @@ public class User {
 	@Comment("유저 번호")
 	private int id;	// int(11) / 유저 번호
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 30, nullable = false)
     @Comment("유저 이름")
 	private String username; // VARCHAR(100) / 유저 이름 / nn
 	
-	@Column(length = 100, nullable = true)
+	@Column(length = 30, nullable = true)
     @Comment("유저 노출 이름")
-	private String displayUsername;	// VARCHAR(100) / 유저 노출 이름 / null
+	private String displayUsername;	// VARCHAR(30) / 유저 노출 이름 / null
 	
 	@Column(length = 255, nullable = false)
     @Comment("비밀번호")

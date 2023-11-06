@@ -32,7 +32,7 @@ public class Destination {
     @Comment("목적지 ID")
 	private int id; // INT(11) / 목적지 id / nn
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 50, nullable = false)
     @Comment("목적지 이름")
 	private String name; // VARCHAR(100) / 목적지 이름 / nn
 	
@@ -40,11 +40,11 @@ public class Destination {
     @Comment("목적지 주소")
 	private String address; // VARCHAR(100) / 목적지 주소 / nn
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 20, nullable = false)
     @Comment("목적지 위도")
 	private String lat; // VARCHAR(100) / 목적지 위도 / nn
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 20, nullable = false)
     @Comment("목적지 경도")
 	private String lon; // VARCHAR(100) / 목적지 경도 / nn
 	

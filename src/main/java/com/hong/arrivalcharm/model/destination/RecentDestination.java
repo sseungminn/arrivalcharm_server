@@ -35,11 +35,11 @@ public class RecentDestination {
     @Comment("검색 목적지 주소")
 	private String address; // VARCHAR(100) / 검색 목적지 주소 / nn
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 20, nullable = false)
     @Comment("검색 목적지 위도")
 	private String lat; // VARCHAR(100) / 검색 목적지 위도 / nn
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 20, nullable = false)
     @Comment("검색 목적지 경도")
 	private String lon; // VARCHAR(100) / 검색 목적지 경도 / nn
 	
