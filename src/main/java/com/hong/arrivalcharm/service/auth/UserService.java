@@ -43,14 +43,18 @@ public class UserService extends ServiceAbstract {
 			// 기존 사진 파일 삭제
 			fh.deleteImage(user.getProfilePath());
 			
+			// 이미지 확장자 확인
 			ImageChecker ci = new ImageChecker(file);
 			ci.checkImage(file);
 			
 			// 새 사진 파일 생성
 			savePath = fh.saveImage(file);
+			
+			user.setProfilePath(savePath);
 		}
-		user.setProfilePath(savePath);
-		user.setDisplayUsername(displayUsername);
+		if(displayUsername != null && displayUsername.equals("")) {
+			user.setDisplayUsername(displayUsername);
+		}
 		userRepository.save(user);
         Map<String, String> result = new HashMap<>();
         result.put("result", "success");

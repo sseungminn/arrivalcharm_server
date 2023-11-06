@@ -3,6 +3,7 @@ package com.hong.arrivalcharm.controller.auth;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,7 +28,7 @@ public class UserController {
 	
 	@PutMapping("/{id}")
 	@ApiOperation(value = "회원 수정", notes = "")
-	public @ResponseBody Map<String, String> updateUser(@PathVariable int id, @RequestParam String displayUsername, @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
+	public @ResponseBody Map<String, String> updateUser(@PathVariable int id, @Nullable @RequestParam String displayUsername, @Nullable @RequestParam(value = "file") MultipartFile file) throws Exception {
 		Map<String, String> result = null;
 		try {
 			result = userService.updateUser(id, displayUsername, file);
