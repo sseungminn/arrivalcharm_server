@@ -32,6 +32,7 @@ public class UserService extends ServiceAbstract {
     public Map<String, String> updateUser(int userId, String displayUsername, MultipartFile file) throws Exception{
 		User user = this.getUserSession();
 		String savePath = user.getProfilePath();
+		displayUsername = displayUsername.trim();
 		
 		if(userId != user.getId()) {
 			throw new Exception("본인의 계정만 수정 가능합니다.");
@@ -52,7 +53,7 @@ public class UserService extends ServiceAbstract {
 			
 			user.setProfilePath(savePath);
 		}
-		if(displayUsername != null && displayUsername.equals("")) {
+		if(displayUsername != null && !displayUsername.isEmpty()) {
 			user.setDisplayUsername(displayUsername);
 		}
 		userRepository.save(user);
