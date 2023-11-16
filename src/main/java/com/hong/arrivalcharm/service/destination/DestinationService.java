@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hong.arrivalcharm.model.auth.User;
 import com.hong.arrivalcharm.model.destination.Destination;
@@ -69,6 +70,7 @@ public class DestinationService extends ServiceAbstract {
 	}
 	
 	// 목적지 삭제
+	@Transactional
 	public Map<String, Object> deleteDestination(int id){
 		User user = this.getUserSession();
 		int userId = user.getId();
@@ -80,6 +82,25 @@ public class DestinationService extends ServiceAbstract {
 		Map<String, Object> result = new HashMap<>();
 		result.put("result", "success");
 //        result.put("destination", destination);
+        return result;
+	}
+	
+	// 목적지 전체 삭제
+	@Transactional
+	public Map<String, Object> deleteAllDestination(){
+		User user = this.getUserSession();
+		int userId = user.getId();
+		List<Destination> destinationList = destinationRepository.myDestinations(userId);
+		if(destinationList == null || destinationList.isEmpty()) {
+			throw new NullPointerException("저장된 목적지가 없습니다.");
+		}
+		for(Destination d : destinationList) {
+			destinationRepository.delete(d);
+		}
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("result", "success");
+//	        result.put("destination", destination);
         return result;
 	}
 	

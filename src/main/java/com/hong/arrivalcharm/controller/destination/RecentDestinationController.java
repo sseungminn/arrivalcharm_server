@@ -72,5 +72,17 @@ public class RecentDestinationController {
 		}
 		return result; 
 	}
+	
+	@DeleteMapping("")
+	@ApiOperation(value = "검색 목적지 전체 삭제", notes = "")
+	public @ResponseBody Map<String, Object> deleteAllRecentDestination(){
+		Map<String, Object> result = null;
+		try {
+			result = recentDestinationService.deleteAllRecentDestination();
+		} catch (Exception e) {
+			throw e;
+		}
+		return result; 
+	}
 }
 

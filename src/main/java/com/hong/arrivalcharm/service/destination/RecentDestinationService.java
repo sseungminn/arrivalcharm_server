@@ -119,4 +119,21 @@ public class RecentDestinationService extends ServiceAbstract {
         return result;
 	}
 	
+	// 최근 목적지 전체 삭제
+	@Transactional
+	public Map<String, Object> deleteAllRecentDestination(){
+		User user = this.getUserSession();
+		int userId = user.getId();
+		List<RecentDestination> recentDestinationList = recentDestinationRepository.getMyRecentSearchList(userId);
+		if(recentDestinationList == null || recentDestinationList.isEmpty()) {
+			throw new NullPointerException("최근 검색한 목적지가 없습니다.");
+		}
+		for(RecentDestination rd : recentDestinationList) {
+			recentDestinationRepository.delete(rd);
+		}
+		Map<String, Object> result = new HashMap<>();
+		result.put("result", "success");
+//	        result.put("destination", destination);
+        return result;
+	}	
 }

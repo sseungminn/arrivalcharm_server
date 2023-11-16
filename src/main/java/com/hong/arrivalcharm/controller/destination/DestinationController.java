@@ -94,5 +94,17 @@ public class DestinationController {
 		}
 		return result; 
 	}
+	
+	@DeleteMapping("")
+	@ApiOperation(value = "목적지 전체 삭제", notes = "")
+	public @ResponseBody Map<String, Object> deleteAllDestination(){
+		Map<String, Object> result = null;
+		try {
+			result = destinationService.deleteAllDestination();
+		} catch (Exception e) {
+			throw e;
+		}
+		return result; 
+	}
 }
 
