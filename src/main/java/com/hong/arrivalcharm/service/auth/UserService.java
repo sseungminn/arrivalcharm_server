@@ -67,7 +67,6 @@ public class UserService extends ServiceAbstract {
 	@Transactional
     public Map<String, String> resignUser(int userId) throws Exception{
 		User user = this.getUserSession();
-		
 		if(user.getId() != userId) {
 			throw new Exception("본인의 계정만 탈퇴 가능합니다.");
 		}
@@ -77,13 +76,11 @@ public class UserService extends ServiceAbstract {
 			destinationRepository.delete(r);
 		}
 		
-		// User 삭제
-		userRepository.delete(user);
-		
 		// 사진 물리 파일 삭제
 		FileHandler fh = new FileHandler(fileDir);
 		fh.deleteImage(user.getProfilePath());
-				
+		// User 삭제
+		userRepository.delete(user);
         Map<String, String> result = new HashMap<>();
         result.put("result", "success");
 		return result;

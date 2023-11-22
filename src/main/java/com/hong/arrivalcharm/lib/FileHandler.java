@@ -45,10 +45,12 @@ public class FileHandler {
 	}
 	
 	public void deleteImage(String path) throws IOException{
-		File file = new File(defaultDir + path);
-		if(!file.exists()) {
-			throw new IOException("파일이 존재하지 않습니다.");
+		if(!path.equals("") && !path.equals("/image/default/profile.jpg")) {
+			File file = new File(defaultDir + path);
+			if(!file.exists()) {
+				throw new IOException("파일이 존재하지 않습니다.");
+			}
+			file.delete();
 		}
-		file.delete();
 	}
 }
