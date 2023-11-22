@@ -73,7 +73,6 @@ public class JwtTokenProvider {
 	// JWT refreshToken 만료체크 후 재발급
 	public RefreshToken reGenerateRefreshToken(int userId) throws Exception {
 		log.info("[reGenerateRefreshToken] refreshToken 재발급 요청");
-
 		RefreshToken refreshToken = refreshTokenRepository.findByUserId(userId);
 		// refreshToken 정보가 존재하지 않는 경우
 		if(refreshToken == null) {
@@ -83,10 +82,9 @@ public class JwtTokenProvider {
 		
 		// refreshToken 만료 여부 체크
 		try {
-			int refreshUserId = JWT.decode(refreshToken.getToken()).getClaim("id").asInt();
+			int refreshUserId = JWT.decode(refreshToken.getToken()).getClaim("userId").asInt();
 			if (userId == refreshUserId) {
 				JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(refreshToken.getToken());
-
 				return refreshToken;
 			}
 			
@@ -97,7 +95,6 @@ public class JwtTokenProvider {
 		catch(EntityNotFoundException | JWTVerificationException e) {
 			refreshToken.setToken(createRefreshToken(userId));
 			refreshTokenRepository.save(refreshToken);
-			
 			return refreshToken;
 		}
 		// 그 외 예외처리

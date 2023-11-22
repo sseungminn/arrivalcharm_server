@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hong.arrivalcharm.auth.PrincipalDetails;
 import com.hong.arrivalcharm.auth.jwt.JwtTokenProvider;
+import com.hong.arrivalcharm.auth.jwt.JwtTokenProvider.JwtCode;
 import com.hong.arrivalcharm.model.auth.RefreshToken;
 import com.hong.arrivalcharm.model.auth.User;
 import com.hong.arrivalcharm.repository.RefreshTokenRepository;
@@ -39,15 +40,26 @@ public class AuthService extends ServiceAbstract {
 		System.out.println("Controller /userId: " + userId);
 		
 		String userRefreshToken = token.getToken();
-		
+
+		JwtCode refreshResultCode = jwtTokenProvider.validateToken(userRefreshToken);
         Map<String, Object> result = new HashMap<>();
         
-		// accessToken 재발급
-		User userEntity = userRepository.findById(userId);
-		PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
-		String newAccessToken = jwtTokenProvider.generateAccessToken(principalDetails);
-		result.put("accessToken", newAccessToken);
-		result.put("refreshToken", userRefreshToken);
+     // refreshToken 사용이 불가능한 경우
+		if(refreshResultCode == JwtCode.EXPIRED || refreshResultCode == JwtCode.DENIED) {
+			throw new Exception("refresh token이 만료되었거나 정보가 존재하지 않습니다.");
+		} else if(refreshResultCode == JwtCode.ACCESS) {
+			System.out.println("Controller /userId: " + userId);
+			// refreshToken 인증 성공인 경우 accessToken 재발급
+			User userEntity = userRepository.findById(userId);
+			PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
+			String newAccessToken = jwtTokenProvider.generateAccessToken(principalDetails);
+
+			result.put("accessToken", newAccessToken);
+			result.put("refreshToken", userRefreshToken);
+		} else {
+			throw new Exception("토큰을 발행할 수 없습니다");
+		}
+        
         return result;
     }
     
